@@ -1,0 +1,6 @@
+# Local venv additions; reuse the separately verified system Torch 2.6.0+cu118.
+transformers==4.57.1
+huggingface_hub==0.36.0
+numpy==1.26.4
+safetensors==0.8.0
+tokenizers==0.22.2

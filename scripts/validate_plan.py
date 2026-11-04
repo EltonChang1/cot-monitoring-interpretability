@@ -49,7 +49,7 @@ def main():
                     path, target
                 )
 
-    config = read_json("configs/pilot.json")
+    config = read_json("configs/full-study-v0.2.json")
     budget, splits = config["budget"], config["splits"]
     cells = (
         len(config["framings"])
@@ -94,7 +94,7 @@ def main():
         budget["total_rollout_cap"] * config["models"]["actor"]["max_new_tokens"]
         == budget["generated_token_cap_at_current_length"] == 53002240
     )
-    for path in (ROOT / "README.md", ROOT / "docs/experiment.md"):
+    for path in (ROOT / "docs/full-study-v0.2.md",):
         assert "12,940" in path.read_text(encoding="utf-8")
 
     assert config["monitoring"]["primary_readout_block_zero_indexed"] > max(
@@ -164,6 +164,24 @@ def main():
     assert examples[2]["boundary_violation"] is True
     assert examples[2]["computation_correct"] is True
 
+    local = read_json("configs/pilot.json")
+    assert local["protocol_version"] == "0.3.0"
+    assert local["profile"] == "local_engineering"
+    lb, lm, la = local["budget"], local["model"], local["activation"]
+    assert sum(lb[k] for k in ("smoke_actor_attempts", "engineering_actor_attempts", "repair_actor_attempts")) == lb["total_actor_attempt_cap"] == 48
+    assert lb["total_actor_attempt_cap"] * lm["max_new_tokens"] == lb["generated_token_cap"] == 24576
+    assert local["apparatus"]["scenario_states"] * len(local["apparatus"]["note_types"]) * len(local["apparatus"]["framings"]) == lb["engineering_actor_attempts"]
+    assert la["dummy_intervention_block_zero_indexed"] < la["readout_block_zero_indexed"] < lm["num_hidden_layers"]
+    assert local["analysis"]["formal_fpr_assurance"] is False
+    assert local["analysis"]["learned_probe_training"] is False
+    assert local["model"]["assets_status"] == "not_downloaded"
+    audit = read_json("docs/resource-audit.json")
+    assert audit["latest_smoke_guard"]["model_inference_performed"] is False
+    assert audit["latest_smoke_guard"]["checkpoint_acquisition_started"] is False
+    assert audit["latest_smoke_guard"]["available_host_memory_bytes"] < local["resource_gates"]["minimum_available_host_bytes_after_imports"]
+    assert "24,576" in (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "BLOCKED_HOST_RAM" in (ROOT / "docs/experiment.md").read_text(encoding="utf-8")
+    print("PASS: local engineering limits/readiness and archived full-study checks.")
     print("PASS: JSON, local document targets, group/rollout/token arithmetic,")
     print("direction allocation, downstream ordering, calibration/damage formulas,")
     print("schema meta-validation, nine rejected contract cases, and fixture label separation.")

@@ -1,6 +1,8 @@
+> Full-study v0.2 analysis only. These inferential gates do not apply to the local engineering pilot.
+
 # Statistical analysis plan
 
-Status: proposed analysis; no observations or results. This plan supports the revised [experiment protocol](experiment.md). Freeze its commit, generator, splits, models, preprocessing, thresholds, and exclusions before any held-out generation.
+Status: proposed analysis; no observations or results. This plan supports the deferred [full-study protocol](full-study-v0.2.md). Freeze its commit, generator, splits, models, preprocessing, thresholds, and exclusions before any held-out generation.
 
 ## 1. Target and independent units
 

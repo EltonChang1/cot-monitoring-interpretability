@@ -1,3 +1,5 @@
+> Deferred full-study comparator. The local engineering pilot does not run this 8B monitor.
+
 # Frozen semantic monitor specification
 
 Protocol 0.2.0. This is a proposed local Qwen3-8B scoring interface, not an implemented or validated judge.

@@ -1,35 +1,48 @@
 # CoT Monitoring & Interpretability
 
-A research-design repository for testing whether internal activations add useful warning information beyond a semantic chain-of-thought monitor, and how frozen monitors behave under framing perturbations.
+A resource-audited project for a small local CoT/activation instrumentation pilot, with a larger research design kept as a deferred reference.
 
-**Status: protocol 0.2.0; design only. No model experiments or empirical results.** Inference, simulators, activation hooks, monitor training, and analysis still need implementation.
+**Default: protocol 0.3.0, local engineering. Current model status: BLOCKED_HOST_RAM.**
+The offline checker/parser and report-safety apparatus pass 14 unit tests. No model checkpoint has been downloaded and no pretrained inference or monitoring result exists.
 
-## Research audit and revised plan
+## What the machine can support
 
-The [harsh critique of v0.1](docs/critique-v0.1.md) found a same-layer activation-readout error, unequal monitor information, an inadequate lexical comparator, conflated error labels, and unsupported evaluation-awareness interpretations. Version 0.2 replaces those comparisons.
+The workstation has an RTX 3060 with 12 GB VRAM and about 16 GB system RAM. CUDA/BF16 work. The earlier 8B BF16 monitor exceeds this GPU's capacity before runtime overhead. The latest small-model smoke was stopped by its guard with about 1.30 GB RAM available, below its 3 GiB requirement.
 
-- [Experiment protocol](docs/experiment.md): staged questions, task definitions, observation timing, interventions, and execution gates.
-- [Statistical analysis](docs/statistical-analysis.md): paired estimand, grouped cross-fitting, conservative calibration, precision forecasts, and missingness bounds.
-- [Research references](docs/references.md): primary papers and research reports through November 3, 2026.
-- [Pilot configuration](configs/pilot.json): machine-readable counts, selection rules, and unresolved artifact pins.
-- [Semantic monitor specification](prompts/semantic-monitor.md): complete context, untrusted reasoning, and label-likelihood scoring.
-- [Trial record contract](docs/trial-record.md) and [JSON Schema](schemas/trial.schema.json): future data and validation boundaries.
-- [Ledger scenario](examples/ledger-scenario.json), [evidence-coverage scenario](examples/evidence-coverage-scenario.json), and [results template](docs/results-template.md).
+An isolated ignored environment now has a working model-loading runtime. Rechecking live headroom and passing a real model smoke remain necessary; GPU fit alone is not a readiness claim.
 
-## Proposed study
+- [Current local protocol](docs/experiment.md) and [configuration](configs/pilot.json).
+- [Harsh resource critique](docs/resource-critique-v0.2.md) and [machine/readiness audit](docs/resource-audit.json).
+- [Current engineering result](docs/results-template.md).
+- [Local environment and smoke instructions](docs/local-setup.md).
+- [Local record contract](docs/trial-record.md).
+- [Primary research references](docs/references.md).
+- [Earlier scientific critique](docs/critique-v0.1.md).
 
-Stage A compares a frozen semantic CoT monitor with semantic-plus-activation fusion on **the same 1,440 held-out unsteered trajectories across 120 outer blueprint groups**. Both receive matched public context. The primary checkpoint is complete reasoning before any final-action token.
+## Run the parts that work now
 
-Stage B is a gated secondary robustness study with **4,800 additional rollouts**, using a downstream activation readout, identical-token clean replays, opposite-direction steering, and concrete semantic/random controls. Its arm names do not establish removal of mental awareness.
+From the repository root:
 
-The maximum phased ceiling is **12,940 actor rollouts**, including discovery and preflight. Calibration and development gates can stop the study before testing. A public-benchmark anchor has its own future budget; this bespoke design is not a completed benchmark replication.
+    python -m unittest discover -s tests -v
+    python scripts/validate_plan.py
 
-All proposed actions are inert JSON checked against explicit synthetic authorization policies. Task mistakes, policy-boundary crossings, and intent are different claims. Model traces and activations must come from the locally instrumented open-weight model.
+The validator requires jsonschema. The offline fixture CLI uses only the standard library:
 
-No weights are downloaded and no paid compute is started by creating this repository. Model revisions and run artifacts remain unpinned, so the protocol is not preregistration-ready. No software/content license has been selected.
+    $env:PYTHONPATH = 'src'
+    python -m cot_monitoring_local --count 4
 
-## Validate the design artifacts
+These are fixture/design checks, not model observations.
 
-Run `python scripts/validate_plan.py` with Python and the `jsonschema` package installed. The [validator](scripts/validate_plan.py) checks document targets, schema behavior, allocations, and calibration calculations. It does not run models, implement the simulator, or validate the scientific hypotheses.
+The [bounded smoke runner](scripts/smoke_local_model.py) uses the isolated runtime and refuses execution without live memory headroom:
 
-Created and research-audited November 3, 2026.
+    .venv\Scripts\python.exe scripts/smoke_local_model.py --output runs/local-resource-smoke/report.json
+
+That command is offline by default and requires a new report path. Explicit acquisition requires --allow-download. The candidate pinned 0.6B checkpoint file is about 1.50 GB; cache/setup have a separate checked budget. Time limits are cooperative in the smoke. Do not lower guards to make a run pass. See the protocol for setup, missing batch implementation, and claims.
+
+## Local budget and deferred study
+
+The local ceiling is 48 actor attempts at 512 generated tokens each: **24,576 generated tokens**, including smoke and repairs. It has no learned monitor, fusion training, 5% FPR claim, or awareness/circuit conclusion. Eight numeric states share one template.
+
+The [full v0.2 study](docs/full-study-v0.2.md), [full configuration](configs/full-study-v0.2.json), and [statistical analysis](docs/statistical-analysis.md) retain the 12,940-rollout reference design. Its 8B judge, dataset, instrumentation, and compute budget remain deferred. Quantization or a smaller judge would need a new validation, not a silent substitution.
+
+All proposed actions are inert synthetic JSON. No real credentials, external recipients, tools, or paid compute are used. No software/content license has been selected.

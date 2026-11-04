@@ -1,47 +1,44 @@
-# Experiment 001 results
+# Local engineering result
 
-Protocol 0.2.0 | **NOT RUN**. Replace placeholders only with measured results. Published research is not a result from this repository.
+Protocol 0.3.0 | Reviewed November 3, 2026
 
-## Provenance and execution gates
+**Outcome: offline apparatus passed; model phase BLOCKED_HOST_RAM.**
 
-- Repository commit, protocol/config/run-manifest hashes: pending.
-- Actor/monitor/tokenizer revisions, dependency lock, templates and label IDs: pending.
-- True outer-blueprint counts and ancestry audit: pending.
-- Checker truth tables, monitor sanity audit, replay/zero-offset invariants: pending.
-- Fit class/group/discordance counts and precision forecast: pending.
-- Designated calibration counts, missingness, thresholds and assumption checks: pending.
-- Stage B eligibility, layer/strength/control-bank selection before any test access: pending.
-- Deviations, failed gates, unexecuted stages: pending.
+## Completed
 
-## Stage A: primary matched comparison
+- Machine inventory established RTX 3060 12 GB VRAM, about 16 GB physical RAM, i7-12700, and ample sampled disk.
+- Existing Torch CUDA/BF16 and a tiny tensor multiplication worked.
+- An ignored isolated environment now imports Torch 2.6.0+cu118 and Transformers 4.57.1 with locally pinned model-loading packages.
+- Twelve checker/parser unit tests passed, including wrong arithmetic versus forbidden actions, duplicate/invalid JSON, and reasoning-boundary fixture cases.
+- Two report-safety tests passed: atomic failure bookkeeping and refusal to overwrite old reports. Total: 14 unit tests.
+- A four-fixture selfcheck ran 20 checks and explicitly reported no inference or actions.
 
-Report semantic-CoT minus fusion joint-miss rate on identical assigned trajectories, positive for fewer fusion misses. Include paired outer-cluster95% interval, partial-identification bounds, and achieved false-alarm cost. Calibration uncertainty is separate from conditional-on-threshold test uncertainty.
+## Model resource gate
 
-| Monitor | Assigned / classified / unknown | Violations and violating outer groups | Misses | Joint misses and bounds | Sensitivity | Achieved FPR | Flag rate | Valid acceptance | Violations per accepted valid output | Task success |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Semantic CoT | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending |
-| Fusion | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending |
+Latest report time: 2026-11-04T07:11:50.933053+00:00 (November 3 in America/Los_Angeles).
 
-Report family×difficulty×framing×note strata, with raw counts and uncertainty. Include prompt-only, lexical, shuffled-CoT, and activation-only diagnostics. A gain at a larger achieved FPR is a tradeoff.
+- Host RAM available after runtime initialization: 1,302,429,696 bytes.
+- Required available host RAM: 3,221,225,472 bytes (3 GiB).
+- Model loading attempted: false.
+- Checkpoint acquisition started: false.
+- Model inference performed: false.
+- Actor attempts: zero.
+- Published pretrained throughput, valid-action rate, memory peak, and monitor quality: **not measured**.
 
-## Stage B: conditional secondary robustness
+The earlier RAM snapshot was larger; live headroom changed. This block demonstrates the guard, not that model inference is impossible on a less-loaded machine. See [the audit](resource-audit.json).
 
-State eligible/not eligible before presenting test results. Report suppression-minus-sham joint misses alongside prevalence, achieved FPR, invalidity, task success, reasoning lengths, and direction-specific random/unrelated effects. Report both directions' discovery semantic-control diagnostics, not only the selected test arm.
+## Still required before the engineering batch
 
-Separate same-token clean replay, treated replay, downstream readout differences, and same-layer negative controls. State whether results support framing sensitivity, generic perturbation, or neither. Do not substitute a wording/probe change for a validated awareness effect.
+A resource-qualified pretrained smoke, completion/benign-task screens, boundary-aligned activation capture, historical cached replay, a capped resumable batch writer, and the full live resource guard. No 32-attempt batch or statistical monitoring comparison has been run.
 
-## Timing, reliability, resources, and uncertainty
+## Claim ledger
 
-Report end-of-reasoning and early64/128/256 views with separately calibrated thresholds, actual observed lengths, closure/censoring rates, latency, and prospective action lead time. No claim about internal decision time follows.
+| Claim | Evidence | Status |
+| --- | --- | --- |
+| Offline checker/parser apparatus works on tested fixtures | 12 unit tests and executable selfcheck | Supported within fixtures |
+| CUDA and BF16 are usable | Device query and tiny finite tensor operation | Supported |
+| Small pretrained actor runs within limits | Guard stopped before acquisition/loading | Not established |
+| CoT/activation complementarity | No model data or semantic comparator | Untested |
+| Awareness suppression or circuit discovery | No relevant intervention study | Untested |
 
-Record generation tokens, monitor input-token/prefill passes, teacher-forced replay passes, peak memory, throughput, hardware, failures, and measured cost. No retries or rejection sampling are assumed.
-
-## Claim-evidence ledger
-
-| Proposed conclusion | Target and access tier | Measured artifact | Supported links | Unsupported or assumed links | Permitted wording |
-| --- | --- | --- | --- | --- | --- |
-| Pending | Pending | Pending | Pending | Pending | Pending |
-
-Discuss calibration assumptions, scarce/concentrated events, shared blueprints, semantic-monitor competence, same-family dependence, selection/generic damage, synthetic policies, null results, and attrition. A failed gate is a reportable feasibility outcome.
-
-External benchmark anchoring, independent-family replication, trained organisms, circuit tracing, adaptive evasion, and live enforcement have not occurred unless separately implemented and documented.
+Preserve this failed readiness result. Do not replace unknown measurements with estimates or report fixture outputs as model observations.
