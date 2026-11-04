@@ -1,0 +1,135 @@
+{
+  "artifact_kind": "published_synthetic_run_manifest",
+  "json_normalization": "UTF-8, LF, indentation only; parsed values unchanged. Raw and published file hashes may differ by newlines.",
+  "files": [
+    {
+      "file": "assigned-plan.json",
+      "raw_run_sha256": "a4d9fc0907c393dbf521f829a18d6443224ca44d7692bd986fb59d418543917f",
+      "published_sha256": "d1ef6560f74601c75ad8f113f5ff710639da10082b84257dd618cd2c255f22c4",
+      "bytes": 12919
+    },
+    {
+      "file": "progress.json",
+      "raw_run_sha256": "8b69a87c1af20805a7770b9c747fbf8073949c2fa3fb384e3edb80e048351b9b",
+      "published_sha256": "6c9aa2df80b16e40a4ad6c4b118a7f9a0e114dd305be70b8860d137abc75e597",
+      "bytes": 809286
+    },
+    {
+      "file": "ledger-local-001-neutral-benign.json",
+      "raw_run_sha256": "1b7ccb0d8b7b7e40b112432ef8d8360e3ca46cadd1b21cc5182dacc5e3f66a0b",
+      "published_sha256": "307582c0fcb400d8091392b9fd17aaf20f5f6abc41144bea923a8af0404a9c62",
+      "bytes": 43582
+    },
+    {
+      "file": "ledger-local-001-neutral-pressure.json",
+      "raw_run_sha256": "03e5d7c1df621f55536841a1fc29cbb218278e9be2928a223189307aad79715f",
+      "published_sha256": "9b062e5c030ce6649387f01cd446d552da75a71bfaadcc18d406870bc9924d6f",
+      "bytes": 44635
+    },
+    {
+      "file": "ledger-local-001-evaluation-benign.json",
+      "raw_run_sha256": "2048aad5f4d5743380d1a5a0c9c87457fcaacff154a023f4ce15ad80008e831c",
+      "published_sha256": "02533ea719e2f61285ff5df8eb475ef1d2d2a06fcc4ded6976ec1a602ed3785e",
+      "bytes": 45467
+    },
+    {
+      "file": "ledger-local-001-evaluation-pressure.json",
+      "raw_run_sha256": "225684dd06aaa571571eeb67d8c0b325203543c004adf9b53361d1e769a5eb68",
+      "published_sha256": "5899de361c12c5af473c27894c2d6f5d977cfafb4e36e059e700e0c9817f0907",
+      "bytes": 43270
+    },
+    {
+      "file": "ledger-local-002-neutral-benign.json",
+      "raw_run_sha256": "9c6b5451c62fb6f0ac54de10871f83bf78f5055ef15f3331ec5a8c605762dea6",
+      "published_sha256": "e72f4b0601786425b2b05af8ccf528642911a1bf14e9e7827253712a1ed70aa7",
+      "bytes": 47847
+    },
+    {
+      "file": "ledger-local-002-neutral-pressure.json",
+      "raw_run_sha256": "3ea28dd5befb61466c19e2fc2e111a8b0f199016c6dd7f426596e270f2eca1fe",
+      "published_sha256": "fbb24c48d136432bbdf9ae541f03c04cc4a223d34035513027534d0300d81de3",
+      "bytes": 28046
+    },
+    {
+      "file": "ledger-local-002-evaluation-benign.json",
+      "raw_run_sha256": "22c123ea3c56e268d92fe4433baae815b7e5c99bdecd238f293799cb4365ba2a",
+      "published_sha256": "1995155be18851dc985720a20ba91b951ba9c1c636e471fe17a04befd02c310f",
+      "bytes": 44136
+    },
+    {
+      "file": "ledger-local-002-evaluation-pressure.json",
+      "raw_run_sha256": "d79ad989daa99192f85c3a498035f87247534f1efea35ee8a5be36e9b94850a9",
+      "published_sha256": "1a0ab254cdbd668f9fd9f21074e6b4af19e96658b4e73c3677cfe5df3237b67f",
+      "bytes": 44881
+    },
+    {
+      "file": "ledger-local-003-neutral-benign.json",
+      "raw_run_sha256": "fd5ff13c9c64d16f037720716cd01874b573ef7360136d36f101308045c1deac",
+      "published_sha256": "5eb0311788d67c868d666264620514f641fd3314977ed4a05da57d8ea8a4a3af",
+      "bytes": 45344
+    },
+    {
+      "file": "ledger-local-003-neutral-pressure.json",
+      "raw_run_sha256": "25bcd62e9913cf4c5fafc1f3cabb92941c3e4174172401d44f872a3432ef5a82",
+      "published_sha256": "31526f61b8d9c04ddcf3150cfb0dbc210259fe77a2344ed8b061c7d28d0cd875",
+      "bytes": 42863
+    },
+    {
+      "file": "ledger-local-003-evaluation-benign.json",
+      "raw_run_sha256": "1f2e4c232293a621ba05bb883411e3b30564807d8e33d36e110ff679f075a49f",
+      "published_sha256": "26a836e34e2a09e0e6bc432dd0da5d88a607194949ca9183b98ed40a1428ef37",
+      "bytes": 41932
+    },
+    {
+      "file": "ledger-local-003-evaluation-pressure.json",
+      "raw_run_sha256": "dfb98819ce09b3445954170832acd8938783a2e5eabd51e07f62d2cc2f993305",
+      "published_sha256": "bfbabf4d9a63be37db7099706ccc82e683b2f598059cb1f5658efa16eda60008",
+      "bytes": 27929
+    },
+    {
+      "file": "ledger-local-004-neutral-benign.json",
+      "raw_run_sha256": "cf2e5bb68986fe98fd0edfd4e0887ac71ba3922b6354977bdba47ef9378cd41d",
+      "published_sha256": "43b6f2a895a3c75484ae7570da7343545da604dc4eb336ce954abbfe37b51158",
+      "bytes": 42412
+    },
+    {
+      "file": "ledger-local-004-neutral-pressure.json",
+      "raw_run_sha256": "6905044733d8e7fdb469b820d66c5dc7ad378db9ab482ad83addecd77e3793d3",
+      "published_sha256": "34fb0608e03fab37c2738311427c61fc51cfc6fd6385406b287e8e0350acc6f9",
+      "bytes": 44038
+    },
+    {
+      "file": "ledger-local-004-evaluation-benign.json",
+      "raw_run_sha256": "cf5736845239534c574a80f28a3a575ec1cb8c85771837e982102dfe7b50a267",
+      "published_sha256": "6ffbf461bc1351cf054ea9289faf0632702e6acf9ea8bb49786843ecf37f77aa",
+      "bytes": 27939
+    },
+    {
+      "file": "ledger-local-004-evaluation-pressure.json",
+      "raw_run_sha256": "54ec57e477d2728fb6d41abd54ab9de76f028ce764842d5c398912442bc8b52e",
+      "published_sha256": "07c82da91ef07345d59e85ecd5b26269bcc9554d54c29f76f86bd79d5a2ad000",
+      "bytes": 44219
+    },
+    {
+      "file": "watchdog.json",
+      "published_sha256": "f889d8b0eebb6117e1a42ef6cfbd80fd6f99e0da28a80419b3c3896f111487e3",
+      "bytes": 397
+    },
+    {
+      "file": "verification.json",
+      "published_sha256": "c87d78588adc55c5421184c86dd072a6835c42d5a2851e96705187692fceeecc",
+      "bytes": 409
+    },
+    {
+      "file": "preflight-smoke.json",
+      "raw_run_sha256": "20260342274ee6870b46b7b2557cba7874589785bc467628e2b318cde9fbe0af",
+      "published_sha256": "21ffa9ffaccc426085e651936ba612f1efb11c1f5c694696e22b820c8f4180d9",
+      "bytes": 37270
+    },
+    {
+      "file": "summary.json",
+      "published_sha256": "415b39425e20aa0ce1d42c14d631acd4685c1d51db45a9e6a9e504d21bdaa1de",
+      "bytes": 4948
+    }
+  ]
+}

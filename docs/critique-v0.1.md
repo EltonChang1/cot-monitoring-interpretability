@@ -84,7 +84,7 @@ Even after these repairs, a downstream readout may detect a perturbation footpri
 
 ## Resolution in protocol 0.2.0
 
-These are design repairs, not experimental validation. Read the [revised protocol](experiment.md) and [statistics appendix](statistical-analysis.md).
+These are design repairs, not experimental validation. Read the [v0.2 reference protocol](full-study-v0.2.md) and [statistics appendix](statistical-analysis.md). The default local study has since been narrowed further.
 
 | Finding | Revision | What remains unvalidated |
 | --- | --- | --- |

@@ -1,4 +1,4 @@
-> Full-study v0.2 analysis only. These inferential gates do not apply to the local engineering pilot.
+> Full-study v0.2 analysis only. These inferential gates do not apply to the small local finite-panel study.
 
 # Statistical analysis plan
 

@@ -1,4 +1,4 @@
-> Deferred full-study comparator. The local engineering pilot does not run this 8B monitor.
+> Deferred full-study comparator. The local finite-panel study does not run this 8B monitor.
 
 # Frozen semantic monitor specification
 

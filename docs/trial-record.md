@@ -1,22 +1,15 @@
-# Local engineering record contract
+# Local study records, version 0.4
 
-Protocol 0.3.0. The full-study record specification is [archived separately](full-study-trial-record-v0.2.md); its v0.2 schema is not the local smoke-report schema.
+The implemented [worker](../src/cot_monitoring_local/model_study.py) writes a frozen assigned plan, atomic progress file, and one JSON file per attempted trial. [Completed example](../results/2026-11-04-local-study/progress.json).
 
-Every local attempt needs a unique attempt ID, source-template and state identities, note/wrapper, pinned model/runtime, input/output token counts, outcome availability, elapsed time, memory, and raw-artifact hashes. Retain failed and repaired attempts. All eight states share the existing ledger source template; do not relabel them as independent clusters.
+Each record preserves the shared source-template/state identity, note, framing, seed, exact visible messages, prompt hash, raw generated IDs, special-token-preserving text, action-checker outcome, diagnostic flags, timestamps, and checkpoint vectors. Four states remain one shared template, not four independent clusters.
 
-The resource guard report is a separate artifact: it records whether acquisition/loading/inference began and the live memory that prevented execution. A blocked guard is zero actor attempts and is not a valid/safe model outcome.
+Checkpoint offsets refer to the input token being processed. For reasoning_end, that token is the first closing token 151668; its hidden state predicts the next token. Thus the readout precedes every action token. A reasoning-prefix-128 observation is collected only before closure.
 
-The four-attempt model smoke report has artifact_kind=local_model_resource_smoke_not_monitor_evaluation. It records generation-wide finite-hook diagnostics and uncached prompt forwards, not a boundary-aligned monitoring dataset. No model observations exist while its status is blocked_host_ram.
+The reasoning-only flag is computed from the delimited reasoning slice. The prompt baseline uses the visible note. The checker receives policy, state, and the later action only. Unknown/capped/malformed outputs never become nonviolations by default.
 
-Before the 32-attempt batch, implement a distinct JSONL writer with:
-- Preassignment and cumulative attempt/token/time/storage accounting.
-- Token-ID reasoning boundary and pre-action observation offsets.
-- Strict action checking with unknown labels for invalid output.
-- Separate validity, task success, computation correctness, and boundary crossing.
-- Selected-layer finite-state artifacts, masks, and cached/uncached replay results.
-- Hashes of raw tokens/text, model revision, config, prompts, checker, and runtime.
-- Atomic progress saves and honest failure statuses.
+The [supervisor](../scripts/run_local_study.py) writes a watchdog report and worker log. It owns only its launched worker. Completed records and all preassignments survive a timeout; forcibly terminating an active worker can lose its unsaved token prefix, leaving that assignment indeterminate. It does not guarantee cleanup if the supervisor itself is forcibly killed.
 
-The existing text parser validates fixture strings; it does not prove model-token alignment. The existing smoke hook can observe action-token states, so those states must never be presented as pre-action evidence. Do not fabricate a baseline dataset from fixture selfchecks, guard reports, or future batch schema examples.
+The [verification CLI](../scripts/verify_local_run.py) checks assignment/rule/source hashes, finite vector shapes and positions, checker outcomes, per-trial consistency, and aggregate counts. --verify-token-text additionally uses the cached tokenizer to verify raw/reasoning/action text without a model forward pass.
 
-Store model caches outside the source tree and runs under ignored local directories. Publish only a deliberately summarized resource report without credentials or unrelated personal data.
+Published JSON is UTF-8 with LF and unchanged parsed values. The artifact manifest records both raw-run and published-file hashes when newlines differ. Model weights stay outside the repository; the actual synthetic run is intentionally published under results/.

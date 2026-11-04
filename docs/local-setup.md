@@ -1,44 +1,42 @@
-# Local setup and readiness
+# Local setup and executable study
 
-This is the 0.3 engineering profile, not the deferred full study. Current result: [host-RAM gate blocked model execution](results-template.md). Do not infer readiness from installed packages alone.
+The small model now loads and the 16-trial study has [completed](results-template.md). The previous RAM block is preserved in [resource history](resource-audit.json); it is no longer the current run status.
 
-## Existing workspace
+## Prepared environment
 
-An ignored .venv was created with access to existing system packages so the already installed CUDA Torch did not need another large download. Model-loading additions are pinned in [requirements-local.txt](../requirements-local.txt). These direct pins are not a claim of a fully hermetic environment; observed Torch and hardware are recorded in the [audit](resource-audit.json).
+The ignored .venv reuses the existing system Torch 2.6.0+cu118. Model-loading additions are pinned in [requirements-local.txt](../requirements-local.txt). Transformers 4.57.1, the tokenizer, BF16 CUDA generation, and checkpoint hooks have now executed successfully. Direct dependency pins are not a claim of a fully hermetic environment.
 
-Offline apparatus:
+On this host, only if .venv is absent:
+
+    uv venv .venv --system-site-packages --python C:\Users\trena\AppData\Local\Programs\Python\Python312\python.exe
+    uv pip install --python .venv\Scripts\python.exe -r requirements-local.txt
+
+A different host must independently establish a compatible Torch/CUDA environment. No API credit, cloud GPU, or paid compute is assumed.
+
+## Run and verify
+
+From the repository root, choose a new run name:
+
+    .venv\Scripts\python.exe scripts/run_local_study.py --output-dir runs/NEW-RUN --states 4 --max-new-tokens 512 --wall-seconds 1200
+    .venv\Scripts\python.exe scripts/verify_local_run.py --run-dir runs/NEW-RUN --verify-token-text
+
+The default is offline. The pinned checkpoint is cached under the user's .cache/cot-monitoring-interpretability directory, outside the source tree. For a fresh cache, first use scripts/smoke_local_model.py with --allow-download and a new --output path; that setup path checks the separate disk/cache budget. Remote model code is disabled and safetensors is required. The default study's resource qualification covers cached execution, not an unmeasured fresh download inside the worker.
+
+The direct worker is also executable with PYTHONPATH=src, but use the supervisor for a process-level wall-clock bound. The worker's own per-token deadline and resource checks are cooperative. The supervisor limits its owned child while the supervisor remains alive; external forced termination of the supervisor is outside that guarantee.
+
+The four-attempt smoke CLI remains available for separate hardware checks. It is not the study entrypoint. It has cooperative timing and cannot replace the supervisor's hard process timeout.
+
+## Resource behavior
+
+The worker requires at least 3 GiB free host RAM after imports and 4 GiB free VRAM before loading. During generation it checks host/VRAM reserves, allocation, time, and artifact use. These checks are not OS reservations. If current desktop load fails a gate, the run stops and its assignments remain; do not lower guards or close unrelated applications automatically.
+
+The checkpoint file is about 1.50 GB, with additional tokenizer/cache/setup use. Cache duplication on Windows is possible. Do not assume a rounded model name is a storage measurement. The 8B BF16 comparator remains deferred.
+
+## Offline checks
 
     python -m unittest discover -s tests -v
     python scripts/validate_plan.py
-    $env:PYTHONPATH = 'src'
-    python -m cot_monitoring_local --count 4
 
-Runtime import check:
+These checks use no model weights or GPU inference. The watchdog tests launch only short dummy child processes. The artifact verifier can also check the published run in results/2026-11-04-local-study; tokenizer verification requires the prepared environment/cache.
 
-    .venv\Scripts\python.exe -c "import torch, transformers; print(torch.__version__, transformers.__version__)"
-
-The smoke script checks current RAM after runtime initialization. Its 3 GiB requirement is higher than the latest observed headroom, so the current result is blocked. It also checks CUDA/BF16, free VRAM, and disk. No background retry or application shutdown is performed.
-
-## Recreating the local environment
-
-On this same host, only if .venv is absent:
-
-    uv venv .venv --system-site-packages --python C:\Users\trena\AppData\Local\Programs\Python\Python312\python.exe
-
-Install additions into that environment, not global Python:
-
-    uv pip install --python .venv\Scripts\python.exe -r requirements-local.txt
-
-A different host must separately verify its CUDA Torch installation; these commands do not install or validate a GPU driver. No cloud account, paid GPU, or API credit is assumed.
-
-## Bounded model smoke
-
-Offline is the default:
-
-    .venv\Scripts\python.exe scripts/smoke_local_model.py --output runs/local-resource-smoke/report.json
-
-Only when the resource gates pass, explicit --allow-download permits acquiring the one pinned public checkpoint. The published checkpoint file is 1,503,300,328 bytes; tokenizer metadata and cache duplication are additional. Cache location is under the user's home .cache/cot-monitoring-interpretability directory, outside the source tree. Remote model code is disabled and only safetensors weights are accepted.
-
-The script is limited to four actor attempts, each at 512 new tokens, plus five forward-only smoke/stress calls. Setup/cache has a conservative preflight reservation and measured post-acquisition check, not an OS quota. Its 120-second timeout is cooperative between decode steps; there is no hard worker timeout for loading/prefill/forward calls. It does not implement the 32-attempt batch, its cumulative guard ledger, pre-action activation alignment, or historical cached replay. Those remain requirements before a batch. Do not represent this smoke as an experiment on monitoring accuracy.
-
-Guard reports and raw traces go to ignored runs/. Choose a unique output path: the script refuses to overwrite an existing report. It atomically saves assignment/progress/failures and preserves raw token IDs and special-token text when generation occurs. Record a new summarized result only from actual observations. A blocked guard does not acquire a checkpoint, consume an actor generation attempt, or produce a safe model outcome.
+No training, learned monitor, semantic judge, intervention direction search, or historical intervention replay is part of this study.

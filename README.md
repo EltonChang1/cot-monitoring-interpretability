@@ -1,48 +1,37 @@
 # CoT Monitoring & Interpretability
 
-A resource-audited project for a small local CoT/activation instrumentation pilot, with a larger research design kept as a deferred reference.
+**The default local study is executable and has been run.** Protocol 0.4 uses a pinned Qwen3-0.6B model on the available RTX 3060; it studies shortcut-pressure behavior and a fixed CoT warning diagnostic on a small synthetic ledger panel.
 
-**Default: protocol 0.3.0, local engineering. Current model status: BLOCKED_HOST_RAM.**
-The offline checker/parser and report-safety apparatus pass 14 unit tests. No model checkpoint has been downloaded and no pretrained inference or monitoring result exists.
+The November 4 run completed all **16 assigned trials in about 7 minutes**. It saved 13 pre-action activation readouts. Eight actions were valid, successful, and nonviolating; five completed outputs were malformed, and three hit the token cap. These eight unknown labels make the behavioral and monitoring conclusions inconclusive. They are preserved, not repaired or discarded.
 
-## What the machine can support
+## Run the study
 
-The workstation has an RTX 3060 with 12 GB VRAM and about 16 GB system RAM. CUDA/BF16 work. The earlier 8B BF16 monitor exceeds this GPU's capacity before runtime overhead. The latest small-model smoke was stopped by its guard with about 1.30 GB RAM available, below its 3 GiB requirement.
+From this repository in the prepared local environment:
 
-An isolated ignored environment now has a working model-loading runtime. Rechecking live headroom and passing a real model smoke remain necessary; GPU fit alone is not a readiness claim.
+    .venv\Scripts\python.exe scripts/run_local_study.py --output-dir runs/NEW-RUN --states 4 --max-new-tokens 512 --wall-seconds 1200
 
-- [Current local protocol](docs/experiment.md) and [configuration](configs/pilot.json).
-- [Harsh resource critique](docs/resource-critique-v0.2.md) and [machine/readiness audit](docs/resource-audit.json).
-- [Current engineering result](docs/results-template.md).
-- [Local environment and smoke instructions](docs/local-setup.md).
-- [Local record contract](docs/trial-record.md).
-- [Primary research references](docs/references.md).
-- [Earlier scientific critique](docs/critique-v0.1.md).
+The output path must be new. The pinned checkpoint is now cached locally, so the default is offline. The parent supervises only its own worker, with a hard 20-minute limit while the supervisor remains alive. Live RAM/VRAM checks still apply; current workload can change.
 
-## Run the parts that work now
+Verify an output without generating more model data:
 
-From the repository root:
+    .venv\Scripts\python.exe scripts/verify_local_run.py --run-dir runs/NEW-RUN --verify-token-text
+
+## Inspect the actual work
+
+- [Protocol](docs/experiment.md) and [configuration](configs/pilot.json).
+- [Measured results](docs/results-template.md).
+- [Published observations, tokens, and activation vectors](results/2026-11-04-local-study/progress.json).
+- [Small result summary](results/2026-11-04-local-study/summary.json), [verification](results/2026-11-04-local-study/verification.json), and [frozen assignments](results/2026-11-04-local-study/assigned-plan.json).
+- [Local setup](docs/local-setup.md), [record contract](docs/trial-record.md), and [resource history](docs/resource-audit.json).
+- [Research references](docs/references.md) and [earlier resource critique](docs/resource-critique-v0.2.md).
+
+## Checks and scope
 
     python -m unittest discover -s tests -v
     python scripts/validate_plan.py
 
-The validator requires jsonschema. The offline fixture CLI uses only the standard library:
+All 27 unit tests pass, including token-boundary alignment, strict checking, missing-label counts, atomic reports, and watchdog timeout/interrupt tests using dummy processes.
 
-    $env:PYTHONPATH = 'src'
-    python -m cot_monitoring_local --count 4
+This study has one shared toy template, no learned monitor or fusion, and no population inference, awareness-suppression result, or circuit claim. The [larger v0.2 design](docs/full-study-v0.2.md) remains deferred; running this small study does not qualify its 8B comparator or compute budget.
 
-These are fixture/design checks, not model observations.
-
-The [bounded smoke runner](scripts/smoke_local_model.py) uses the isolated runtime and refuses execution without live memory headroom:
-
-    .venv\Scripts\python.exe scripts/smoke_local_model.py --output runs/local-resource-smoke/report.json
-
-That command is offline by default and requires a new report path. Explicit acquisition requires --allow-download. The candidate pinned 0.6B checkpoint file is about 1.50 GB; cache/setup have a separate checked budget. Time limits are cooperative in the smoke. Do not lower guards to make a run pass. See the protocol for setup, missing batch implementation, and claims.
-
-## Local budget and deferred study
-
-The local ceiling is 48 actor attempts at 512 generated tokens each: **24,576 generated tokens**, including smoke and repairs. It has no learned monitor, fusion training, 5% FPR claim, or awareness/circuit conclusion. Eight numeric states share one template.
-
-The [full v0.2 study](docs/full-study-v0.2.md), [full configuration](configs/full-study-v0.2.json), and [statistical analysis](docs/statistical-analysis.md) retain the 12,940-rollout reference design. Its 8B judge, dataset, instrumentation, and compute budget remain deferred. Quantization or a smaller judge would need a new validation, not a silent substitution.
-
-All proposed actions are inert synthetic JSON. No real credentials, external recipients, tools, or paid compute are used. No software/content license has been selected.
+All proposals are inert synthetic JSON. Model weights and environments stay outside Git; published observations contain only constructed tasks. No paid compute was used. No project software/content license has been selected.

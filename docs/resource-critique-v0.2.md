@@ -1,5 +1,7 @@
 # Resource critique of protocol 0.2.0
 
+> Historical November 3 audit. The RAM-blocked state below was superseded on November 4 by a completed smaller study. See the [current measured result](results-template.md); the large v0.2 study remains deferred.
+
 **Reviewed:** the full-study design at commit `90b5e00`, with subsequent local engineering follow-through recorded below. **Date:** 2026-11-03. This review distinguishes the archived full study from the smaller local engineering pilot. It reports inventory, offline validation, and a failed readiness gate, not an inference benchmark. No model weights were downloaded or model inference executed.
 
 **Verdict: reject v0.2 as the default experiment to run on this workstation. Current local model readiness: `BLOCKED_HOST_RAM`.** Its scientific safeguards improved, but its scope expanded beyond a measured local execution budget. The smaller engineering pilot has an implemented offline apparatus; its bounded model smoke check stopped at the host-memory guard. The full study is archived, and GPU capacity alone does not make the local pilot ready.
