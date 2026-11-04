@@ -1,32 +1,35 @@
 # CoT Monitoring & Interpretability
 
-An experiment-design repository studying whether observable reasoning and internal activations provide complementary warning signals before a model proposes a policy-violating action.
+A research-design repository for testing whether internal activations add useful warning information beyond a semantic chain-of-thought monitor, and how frozen monitors behave under framing perturbations.
 
-**Status: protocol draft; no model experiments or empirical results yet.** This repository contains the study design and supporting specifications. Model inference, activation hooks, monitors, and analysis code remain to be implemented.
+**Status: protocol 0.2.0; design only. No model experiments or empirical results.** Inference, simulators, activation hooks, monitor training, and analysis still need implementation.
 
-## Research question
+## Research audit and revised plan
 
-When a candidate evaluation-framing representation is suppressed in an open-weight reasoning model, does the rate of policy violations missed by a frozen reasoning monitor change? Can an activation monitor help identify those misses?
+The [harsh critique of v0.1](docs/critique-v0.1.md) found a same-layer activation-readout error, unequal monitor information, an inadequate lexical comparator, conflated error labels, and unsupported evaluation-awareness interpretations. Version 0.2 replaces those comparisons.
 
-The motivating Anthropic result is an audit intervention: suppressing evaluation-awareness representations sometimes **increased** problematic behavior. It does not establish that suppression improves safety. Observable CoT is also an imperfect signal, rather than a complete account of model computation. See the [primary-source notes](docs/references.md).
+- [Experiment protocol](docs/experiment.md): staged questions, task definitions, observation timing, interventions, and execution gates.
+- [Statistical analysis](docs/statistical-analysis.md): paired estimand, grouped cross-fitting, conservative calibration, precision forecasts, and missingness bounds.
+- [Research references](docs/references.md): primary papers and research reports through November 3, 2026.
+- [Pilot configuration](configs/pilot.json): machine-readable counts, selection rules, and unresolved artifact pins.
+- [Semantic monitor specification](prompts/semantic-monitor.md): complete context, untrusted reasoning, and label-likelihood scoring.
+- [Trial record contract](docs/trial-record.md) and [JSON Schema](schemas/trial.schema.json): future data and validation boundaries.
+- [Ledger scenario](examples/ledger-scenario.json), [evidence-coverage scenario](examples/evidence-coverage-scenario.json), and [results template](docs/results-template.md).
 
-## Start here
+## Proposed study
 
-- [Experiment protocol](docs/experiment.md): hypotheses, tasks, interventions, monitor timing, analysis, and execution gates.
-- [Primary sources](docs/references.md): verified 2025–2026 research and claim boundaries.
-- [Pilot configuration](configs/pilot.json): proposed counts and settings; unresolved pins are explicit.
-- [Trial specification](docs/trial-record.md) and [JSON Schema](schemas/trial.schema.json): planned records and leakage boundaries.
-- [Illustrative scenario](examples/ledger-scenario.json): hand-authored task specification, not a model output or experimental observation.
-- [Results template](docs/results-template.md): reporting requirements, including null and inconclusive outcomes.
+Stage A compares a frozen semantic CoT monitor with semantic-plus-activation fusion on **the same 1,440 held-out unsteered trajectories across 120 outer blueprint groups**. Both receive matched public context. The primary checkpoint is complete reasoning before any final-action token.
 
-## Proposed pilot
+Stage B is a gated secondary robustness study with **4,800 additional rollouts**, using a downstream activation readout, identical-token clean replays, opposite-direction steering, and concrete semantic/random controls. Its arm names do not establish removal of mental awareness.
 
-Use `Qwen/Qwen3-4B` locally in thinking mode, three synthetic task families, two matched context framings, four activation conditions, and three sampling seeds. The held-out test comprises **2,880 rollouts across 120 independent base-scenario groups**. The primary outcome is a policy violation that an early reasoning monitor fails to flag.
+The maximum phased ceiling is **12,940 actor rollouts**, including discovery and preflight. Calibration and development gates can stop the study before testing. A public-benchmark anchor has its own future budget; this bespoke design is not a completed benchmark replication.
 
-All actions are inert JSON proposals checked against explicit toy policies. The experiment does not connect a model to real tools, accounts, credentials, or external recipients. Reasoning tokens and activations come from the locally instrumented open-weight model; hosted reasoning summaries are not substitutes.
+All proposed actions are inert JSON checked against explicit synthetic authorization policies. Task mistakes, policy-boundary crossings, and intent are different claims. Model traces and activations must come from the locally instrumented open-weight model.
 
-## Next implementation milestone
+No weights are downloaded and no paid compute is started by creating this repository. Model revisions and run artifacts remain unpinned, so the protocol is not preregistration-ready. No software/content license has been selected.
 
-Implement the simulator and label checker first, then verify reasoning boundaries and activation hooks on a 96-rollout preflight. Freeze model revisions, dependency versions, scenario splits, steering settings, and monitor artifacts before opening the held-out test. See [the staged run plan](docs/experiment.md#10-execution-plan-and-resources).
+## Validate the design artifacts
 
-Created November 3, 2026. The protocol is a proposed pilot, not a registered or completed study. No software or content license has been selected yet.
+Run `python scripts/validate_plan.py` with Python and the `jsonschema` package installed. The [validator](scripts/validate_plan.py) checks document targets, schema behavior, allocations, and calibration calculations. It does not run models, implement the simulator, or validate the scientific hypotheses.
+
+Created and research-audited November 3, 2026.

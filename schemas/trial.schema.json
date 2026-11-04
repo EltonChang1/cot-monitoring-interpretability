@@ -1,52 +1,225 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Planned CoT monitoring trial record",
-  "description": "One assigned rollout. Cross-field and timing invariants also require the checks in docs/trial-record.md.",
+  "title": "CoT monitoring assigned trial record v0.2",
+  "description": "Design contract only. Cross-record grouping, token timing, score equality, paths and scientific invariants need semantic checks in docs/trial-record.md.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "trial_id", "scenario_id", "template_group_id", "family", "split", "framing", "condition", "generation_seed", "status", "manifest_sha256", "checkpoint", "outcome", "monitors", "artifacts"],
+  "required": [
+    "schema_version",
+    "trial_id",
+    "blueprint_id",
+    "source_template_id",
+    "parent_generator_id",
+    "instance_id",
+    "family",
+    "difficulty",
+    "split",
+    "track",
+    "framing",
+    "note_type",
+    "condition",
+    "direction_id",
+    "replicate_index",
+    "generation_seed",
+    "calibration_designated",
+    "generation_status",
+    "manifest_sha256",
+    "outcome",
+    "observations",
+    "artifacts"
+  ],
   "properties": {
-    "schema_version": {"const": "0.1.0"},
-    "trial_id": {"type": "string", "minLength": 1},
-    "scenario_id": {"type": "string", "minLength": 1},
-    "template_group_id": {"type": "string", "minLength": 1},
-    "family": {"enum": ["ledger_integrity", "synthetic_data_routing", "score_integrity"]},
-    "split": {"enum": ["preflight", "discovery", "monitor_fit", "threshold_calibration", "test"]},
-    "framing": {"enum": ["evaluation", "operational"]},
-    "condition": {"enum": ["none", "suppress", "enhance", "random"]},
-    "generation_seed": {"type": "integer"},
-    "status": {"enum": ["not_started", "valid", "invalid_json", "truncated", "missing_action", "ambiguous", "inference_failed"]},
-    "manifest_sha256": {"$ref": "#/$defs/sha256"},
-    "checkpoint": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["target_reasoning_tokens", "reasoning_tokens_observed", "boundary", "action_tokens_visible"],
-      "properties": {
-        "target_reasoning_tokens": {"const": 128},
-        "reasoning_tokens_observed": {"type": "integer", "minimum": 0, "maximum": 128},
-        "boundary": {"enum": ["token_budget", "reasoning_end", "unavailable"]},
-        "action_tokens_visible": {"const": 0}
-      }
+    "schema_version": {
+      "const": "0.2.0"
+    },
+    "trial_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "blueprint_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_template_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parent_generator_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "instance_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "family": {
+      "enum": [
+        "ledger_integrity",
+        "synthetic_data_routing",
+        "evidence_coverage"
+      ]
+    },
+    "difficulty": {
+      "enum": [
+        "easy",
+        "compositional"
+      ]
+    },
+    "split": {
+      "enum": [
+        "preflight",
+        "discovery",
+        "monitor_fit",
+        "calibration",
+        "test"
+      ]
+    },
+    "track": {
+      "enum": [
+        "preflight",
+        "discovery",
+        "baseline",
+        "framing_robustness"
+      ]
+    },
+    "framing": {
+      "enum": [
+        "neutral",
+        "evaluation",
+        "operational"
+      ]
+    },
+    "note_type": {
+      "enum": [
+        "benign",
+        "pressure"
+      ]
+    },
+    "condition": {
+      "enum": [
+        "sham",
+        "suppress",
+        "enhance",
+        "random",
+        "unrelated"
+      ]
+    },
+    "direction_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "replicate_index": {
+      "enum": [
+        0,
+        1
+      ]
+    },
+    "generation_seed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "calibration_designated": {
+      "type": "boolean"
+    },
+    "generation_status": {
+      "enum": [
+        "assigned",
+        "completed",
+        "truncated",
+        "inference_failed"
+      ]
+    },
+    "manifest_sha256": {
+      "$ref": "#/$defs/sha256"
     },
     "outcome": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["policy_violation", "task_success", "checker_version"],
+      "required": [
+        "outcome_status",
+        "boundary_violation",
+        "task_success",
+        "computation_correct",
+        "checker_version"
+      ],
       "properties": {
-        "policy_violation": {"type": ["boolean", "null"]},
-        "task_success": {"type": ["boolean", "null"]},
-        "checker_version": {"type": ["string", "null"]}
-      }
+        "outcome_status": {
+          "enum": [
+            "classified",
+            "indeterminate"
+          ]
+        },
+        "boundary_violation": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "task_success": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "computation_correct": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "checker_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "outcome_status": {
+                "const": "classified"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "boundary_violation": {
+                "type": "boolean"
+              },
+              "task_success": {
+                "type": "boolean"
+              },
+              "checker_version": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "boundary_violation": {
+                "type": "null"
+              },
+              "task_success": {
+                "type": "null"
+              },
+              "computation_correct": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
     },
-    "monitors": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["task", "cot", "activation", "fusion"],
-      "properties": {
-        "task": {"$ref": "#/$defs/monitor"},
-        "cot": {"$ref": "#/$defs/monitor"},
-        "activation": {"$ref": "#/$defs/monitor"},
-        "fusion": {"$ref": "#/$defs/monitor"}
+    "observations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/observation"
       }
     },
     "artifacts": {
@@ -54,26 +227,325 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["kind", "relative_path", "sha256"],
+        "required": [
+          "kind",
+          "relative_path",
+          "sha256"
+        ],
         "properties": {
-          "kind": {"enum": ["tokens", "reasoning", "final_output", "activation_pre_hook", "activation_post_hook_diagnostic", "timing", "error"]},
-          "relative_path": {"type": "string", "minLength": 1},
-          "sha256": {"$ref": "#/$defs/sha256"}
+          "kind": {
+            "enum": [
+              "tokens",
+              "reasoning",
+              "final_output",
+              "activation_downstream",
+              "activation_same_layer_negative_control",
+              "clean_replay",
+              "treated_replay",
+              "intervention_mask",
+              "semantic_scores",
+              "timing",
+              "error"
+            ]
+          },
+          "relative_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "$ref": "#/$defs/sha256"
+          }
         }
       }
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "condition": {
+            "const": "sham"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "direction_id": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "direction_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "track": {
+            "const": "baseline"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "condition": {
+            "const": "sham"
+          },
+          "split": {
+            "enum": [
+              "monitor_fit",
+              "calibration",
+              "test"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "calibration_designated": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "split": {
+            "const": "calibration"
+          }
+        }
+      }
+    }
+  ],
   "$defs": {
-    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
     "monitor": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["score", "threshold", "flagged"],
+      "required": [
+        "score",
+        "threshold",
+        "flagged"
+      ],
       "properties": {
-        "score": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
-        "threshold": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
-        "flagged": {"type": ["boolean", "null"]}
-      }
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "threshold": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "flagged": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "anyOf": [
+              {
+                "properties": {
+                  "score": {
+                    "type": "null"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "threshold": {
+                    "type": "null"
+                  }
+                }
+              }
+            ]
+          },
+          "then": {
+            "properties": {
+              "flagged": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "flagged": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checkpoint",
+        "available",
+        "reasoning_tokens_observed",
+        "reasoning_closed",
+        "final_action_tokens_visible",
+        "input_position",
+        "activation_block",
+        "monitors"
+      ],
+      "properties": {
+        "checkpoint": {
+          "enum": [
+            "reasoning_end",
+            "early64",
+            "early128",
+            "early256"
+          ]
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "reasoning_tokens_observed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4096
+        },
+        "reasoning_closed": {
+          "type": "boolean"
+        },
+        "final_action_tokens_visible": {
+          "const": 0
+        },
+        "input_position": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "activation_block": {
+          "const": 32
+        },
+        "monitors": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "prompt_semantic",
+            "cot_semantic",
+            "activation",
+            "fusion",
+            "cot_lexical"
+          ],
+          "properties": {
+            "prompt_semantic": {
+              "$ref": "#/$defs/monitor"
+            },
+            "cot_semantic": {
+              "$ref": "#/$defs/monitor"
+            },
+            "activation": {
+              "$ref": "#/$defs/monitor"
+            },
+            "fusion": {
+              "$ref": "#/$defs/monitor"
+            },
+            "cot_lexical": {
+              "$ref": "#/$defs/monitor"
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "checkpoint": {
+                "const": "reasoning_end"
+              },
+              "available": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reasoning_closed": {
+                "const": true
+              },
+              "input_position": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "checkpoint": {
+                "const": "early64"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reasoning_tokens_observed": {
+                "maximum": 64
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "checkpoint": {
+                "const": "early128"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reasoning_tokens_observed": {
+                "maximum": 128
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "checkpoint": {
+                "const": "early256"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reasoning_tokens_observed": {
+                "maximum": 256
+              }
+            }
+          }
+        }
+      ]
     }
   }
 }

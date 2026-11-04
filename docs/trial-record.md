@@ -1,25 +1,43 @@
-# Trial record and leakage boundaries
+# Trial record and information boundaries
 
-The [JSON Schema](../schemas/trial.schema.json) specifies one planned actor rollout, including its primary-checkpoint monitor scores. It is a contract for future implementation, not evidence that a runner exists. No illustrative model observation is included.
+Protocol/schema version 0.2.0. The [schema](../schemas/trial.schema.json) specifies one assigned actor rollout and an array of pre-action observations. There are no observed model records in this repository.
 
-Each assigned trial needs a unique `trial_id`, immutable scenario/template-group identity, split, framing, intervention, generation seed, status, hashes, and output references. Write an assignment record before inference so failures remain in the denominator. Use JSON `null` for unknown outcomes rather than converting failures to nonviolations.
+This replaces the v0.1 contract; it is not backward compatible. No migration is required because no empirical records were produced.
 
-The run manifest resolves every SHA-256 to an immutable artifact. Large/raw files live outside Git: full token IDs, reasoning, final output, pre-hook activations, optional diagnostic post-hook activations, and timing logs. Store paths relative to the local run directory and forbid path traversal in the eventual writer/reader.
+## Identity, grouping, and assignment
 
-The checkpoint contains only a reasoning prefix. `reasoning_tokens_observed` is the actual count, possibly below 128. `boundary` is `token_budget`, `reasoning_end`, or `unavailable`. No final-action token may appear in the monitor observation. A no-reasoning output may have zero tokens with `reasoning_end`; a missing/unparseable boundary uses `unavailable`.
+Write the assignment before inference. Preserve blueprint_id, source_template_id, parent_generator_id, instance_id, split, track, difficulty, note type, framing, replicate index, actual seed, condition, and direction identity. All descendants of the highest shared blueprint remain in one split. A manifest, not a filename or row count, determines the outer inferential unit.
 
-Monitor scores are probabilities or risk scores in [0,1] with frozen thresholds. Store `null` scores for unavailable predictions. For valid available scores, `flagged` must equal `score > threshold`. The implementation must check this cross-field invariant; JSON Schema alone does not enforce it. `fusion` is the mean of `cot` and `activation` when both exist.
+Stage B reuses existing sham rollout IDs rather than duplicating them. Its additional random directions are separate trial assignments crossed with both replicates. calibration_designated is fixed before outcomes, with exactly one designated cell per calibration blueprint. It must never be selected by whether a convenient seed was safe.
 
-`policy_violation` and `task_success` come from the independent action checker. A valid abstention can have both fields false. A malformed, truncated, failed, or ambiguous action has unknown labels. An invalid action does not become valid merely because its intent seems clear in CoT.
+## Outcomes
 
-Required semantic checks beyond schema validation:
+boundary_violation is derived only from the explicit policy and parsed action. task_success and computation_correct are separate. A wrong permitted calculation can have boundary_violation=false and task_success=false. computation_correct can be null when no computation was attempted.
 
-- A trial ID is unique within the manifest; all scenario variants share the same split.
-- `valid` requires a parseable action and non-null outcome labels; other statuses require unknown outcome labels.
-- Scenario, model, configuration, and artifact hashes match the frozen manifest.
-- Token offsets prove that the observed prefix and activations precede the action segment.
-- Monitors receive only their permitted views; the analysis table is never used as monitor input.
-- Layer, strength, vector, actual perturbation norm, timing, and score thresholds resolve through the run artifacts.
-- `not_started`, failed, and unavailable records remain in the assigned-trial denominator.
+A classified outcome requires a valid parsed action, non-null boundary_violation and task_success, and an independent checker version. Indeterminate outcomes have unknown labels. Do not repair malformed JSON using the reasoning. generation_status and outcome_status are distinct: inference can finish while grading remains indeterminate.
 
-For privacy and reproducibility, synthetic canaries must have no relationship to real secrets. Do not log access tokens or unrelated local paths in run artifacts.
+## Observations
+
+The primary observation is reasoning_end after processing the unsteered closing delimiter, before sampling any final-action token. Secondary observations are early64, early128, and early256. Record exact input position, observed reasoning-token count, closure state, and zero final-action tokens visible.
+
+The activation readout is fixed block 32, downstream of candidate intervention blocks8/17/26. At primary closure, use the delimiter state and mean of the last at most64 reasoning-token states. Empty reasoning uses delimiter state plus a declared zero pooled vector and an empty-mask indicator. For early observations, use the last observed reasoning-token state and its corresponding trailing pool.
+
+Each monitor stores score, threshold, and flag. Missing thresholds or scores imply an unknown flag. Otherwise flagged must equal score > threshold; numerical equality and score calculations require semantic validation beyond JSON Schema. Keep raw two-mapping semantic scores in hashed artifacts.
+
+## Replay and artifacts
+
+For treated observations, store exact-token clean and historically treated replay artifacts. A replay mask names absolute positions and includes last-prompt-only prefill plus reasoning positions; it excludes delimiter/action offsets. Same-layer prehook is a negative control. Store downstream raw/replay readouts separately and never label a perturbation footprint as mental awareness.
+
+Raw files live outside Git under a run directory: tokens, reasoning, final output, activation readouts, intervention masks, replay diagnostics, semantic scores, timing, and errors. Each reference has a relative path and SHA-256. Reject absolute paths and traversal in the future artifact reader/writer. The manifest resolves hashes to immutable versions.
+
+## Mandatory semantic validation
+
+- Unique trial assignment, valid split ancestry, no reused empirical record counted twice.
+- Cell count and random-direction allocation agree with the frozen manifest.
+- Every observation and readout precedes final-action sampling.
+- Monitor context contains the full allowed actor input and no prohibited metadata or future continuation.
+- Classified action labels are independent of reasoning and treatment.
+- Score/threshold/flag equality, semantic label orientation, and fusion artifacts are consistent.
+- Calibration assurance targets the predeclared common complete-case stratum E only. Designated incomplete observations remain attrition and enter all-assigned bounds; they do not receive an FPR assurance. Never replace them with a favorable seed.
+- Every assigned failure stays in analysis denominators and missingness bounds.
+- Synthetic canaries are unrelated to real secrets; no unrelated credentials or private logs enter artifacts.

@@ -1,40 +1,47 @@
 # Experiment 001 results
 
-Status: **NOT RUN**. Replace placeholders only with actual measurements. Do not infer outcomes from the motivating papers.
+Protocol 0.2.0 | **NOT RUN**. Replace placeholders only with measured results. Published research is not a result from this repository.
 
-## Run identity
+## Provenance and execution gates
 
-- Date and execution environment: pending
-- Frozen protocol, repository commit, config hash, and manifest hash: pending
-- Model/tokenizer revisions and dependency lock: pending
-- Selected direction, layer, strength, and selection evidence: pending
-- Completed execution gates and deviations: pending
-- Assigned/completed rollouts and independent scenario groups: pending
+- Repository commit, protocol/config/run-manifest hashes: pending.
+- Actor/monitor/tokenizer revisions, dependency lock, templates and label IDs: pending.
+- True outer-blueprint counts and ancestry audit: pending.
+- Checker truth tables, monitor sanity audit, replay/zero-offset invariants: pending.
+- Fit class/group/discordance counts and precision forecast: pending.
+- Designated calibration counts, missingness, thresholds and assumption checks: pending.
+- Stage B eligibility, layer/strength/control-bank selection before any test access: pending.
+- Deviations, failed gates, unexecuted stages: pending.
 
-## Primary result
+## Stage A: primary matched comparison
 
-Suppression minus no steering, CoT monitor: joint missed-violation difference, conservative missingness bounds, and paired cluster-bootstrap 95% intervals: **pending**.
+Report semantic-CoT minus fusion joint-miss rate on identical assigned trajectories, positive for fewer fusion misses. Include paired outer-cluster95% interval, partial-identification bounds, and achieved false-alarm cost. Calibration uncertainty is separate from conditional-on-threshold test uncertainty.
 
-State whether this is interpretable, null, or inconclusive, using the protocol's class-count and manipulation gates. Report achieved test FPR, rather than assuming calibration FPR transfers.
+| Monitor | Assigned / classified / unknown | Violations and violating outer groups | Misses | Joint misses and bounds | Sensitivity | Achieved FPR | Flag rate | Valid acceptance | Violations per accepted valid output | Task success |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Semantic CoT | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending |
+| Fusion | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending |
 
-## Condition table
+Report family×difficulty×framing×note strata, with raw counts and uncertainty. Include prompt-only, lexical, shuffled-CoT, and activation-only diagnostics. A gain at a larger achieved FPR is a tradeoff.
 
-Use one row per framing × intervention × monitor; also report prespecified equal-weight aggregates.
+## Stage B: conditional secondary robustness
 
-| Framing | Condition | Monitor | Assigned / valid / indeterminate | Violations | Missed violations | Joint miss rate and bounds | Sensitivity | Achieved FPR | Task success |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending |
+State eligible/not eligible before presenting test results. Report suppression-minus-sham joint misses alongside prevalence, achieved FPR, invalidity, task success, reasoning lengths, and direction-specific random/unrelated effects. Report both directions' discovery semantic-control diagnostics, not only the selected test arm.
 
-## Diagnostics and secondary analyses
+Separate same-token clean replay, treated replay, downstream readout differences, and same-layer negative controls. State whether results support framing sensitivity, generic perturbation, or neither. Do not substitute a wording/probe change for a validated awareness effect.
 
-- Manipulation: awareness wording, auxiliary context-classification behavior, and cue discrimination, reported separately.
-- Generic damage: random-direction controls, benign task completion, incoherence, invalid JSON, and truncation.
-- Monitor comparison: task, CoT, activation, fusion, and separate late action gate.
-- Artifact controls: pre-hook readout, direction-projected activation analysis, and prompt-boundary baseline.
-- Variation: task family, framing, seed, reasoning length, other checkpoints, and raw counts.
-- Resources: generated tokens, forward-only passes, latency, peak memory, hardware, and actual cost if applicable.
-- Blinded qualitative audit: sampling procedure, rubric, disagreements, and representative cases.
+## Timing, reliability, resources, and uncertainty
 
-## Limitations and next decision
+Report end-of-reasoning and early64/128/256 views with separately calibrated thresholds, actual observed lengths, closure/censoring rates, latency, and prospective action lead time. No claim about internal decision time follows.
 
-Discuss event counts, cluster uncertainty, cue/template generalization, monitor capacity, perturbation specificity, model scale, synthetic policies, missingness, and deviations. Explain what the measured result supports and what remains unresolved. Any new model, trained organism, SAE intervention, larger sample, or live blocking study requires a separately frozen follow-up design.
+Record generation tokens, monitor input-token/prefill passes, teacher-forced replay passes, peak memory, throughput, hardware, failures, and measured cost. No retries or rejection sampling are assumed.
+
+## Claim-evidence ledger
+
+| Proposed conclusion | Target and access tier | Measured artifact | Supported links | Unsupported or assumed links | Permitted wording |
+| --- | --- | --- | --- | --- | --- |
+| Pending | Pending | Pending | Pending | Pending | Pending |
+
+Discuss calibration assumptions, scarce/concentrated events, shared blueprints, semantic-monitor competence, same-family dependence, selection/generic damage, synthetic policies, null results, and attrition. A failed gate is a reportable feasibility outcome.
+
+External benchmark anchoring, independent-family replication, trained organisms, circuit tracing, adaptive evasion, and live enforcement have not occurred unless separately implemented and documented.
