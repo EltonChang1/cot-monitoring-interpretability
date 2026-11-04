@@ -1,0 +1,24 @@
+# Local environments and secrets
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+
+# Raw or generated study artifacts stay outside the source repository
+runs/
+artifacts/
+models/
+checkpoints/
+data/raw/
+*.safetensors
+*.pt
+*.pth
+*.npy
+*.npz
+*.parquet
