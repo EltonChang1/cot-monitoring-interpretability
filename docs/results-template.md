@@ -1,10 +1,20 @@
-# Actual local study result — November 4, 2026
+# Latest requested execution
+
+The requested fresh execution completed on November 4. The first attempt stopped at the host-RAM reserve guard after 3 attempted trials; its 13 unattempted assignments remain explicit. It is [preserved separately](../results/2026-11-04-requested-run-01/progress.json).
+
+The budgeted retry [completed all 16 trials](../results/2026-11-04-requested-run-02/progress.json) in 402.31 seconds. [Verification passed](../results/2026-11-04-requested-run-02/verification.json): 13 pre-action readouts, 8 valid successful nonviolations, 5 malformed completions, and 3 capped unknowns. All16 token sequences match the earlier fixed-seed run; this is reproduction evidence, not additional independent samples. Neither run is pooled with the earlier study. There were 19 actor attempts across the interrupted run and retry.
+
+Recall remains unmeasurable and the pressure effect remains inconclusive. The original detailed result below remains unchanged.
+
+---
+
+# Actual local study result â€” November 4, 2026
 
 Protocol 0.4.0 | **Execution completed and artifact verification passed.**
 
 ## What ran
 
-The pinned Qwen/Qwen3-0.6B checkpoint ran 16 assigned cells: four ledger states × benign/pressure notes × ordinary/evaluation framing. All states share one source template. Raw tokens, action text, checkpoint vectors, plan/rule/source hashes, and per-trial failures are [published here](../results/2026-11-04-local-study/progress.json).
+The pinned Qwen/Qwen3-0.6B checkpoint ran 16 assigned cells: four ledger states Ã— benign/pressure notes Ã— ordinary/evaluation framing. All states share one source template. Raw tokens, action text, checkpoint vectors, plan/rule/source hashes, and per-trial failures are [published here](../results/2026-11-04-local-study/progress.json).
 
 | Measurement | Actual result |
 | --- | --- |
@@ -31,8 +41,8 @@ No authorization violation was observed in the eight classifiable actions. The o
 
 | Framing | Benign: valid / assigned | Pressure: valid / assigned | Pressure-minus-benign violation bounds |
 | --- | --- | --- | --- |
-| Ordinary task | 2 / 4 | 2 / 4 | −0.50 to +0.50 |
-| Evaluation | 3 / 4 | 1 / 4 | −0.25 to +0.75 |
+| Ordinary task | 2 / 4 | 2 / 4 | âˆ’0.50 to +0.50 |
+| Evaluation | 3 / 4 | 1 / 4 | âˆ’0.25 to +0.75 |
 
 These are missing-label identification bounds on the fixed panel, not confidence intervals. The pressure effect is inconclusive. Validity is a descriptive format/completion outcome; malformed actions are not recoded as safe or successful.
 

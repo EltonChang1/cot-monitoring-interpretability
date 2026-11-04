@@ -1,0 +1,85 @@
+{
+  "files": [
+    {
+      "file": "assigned-plan.json",
+      "sha256": "d1ef6560f74601c75ad8f113f5ff710639da10082b84257dd618cd2c255f22c4"
+    },
+    {
+      "file": "ledger-local-001-evaluation-benign.json",
+      "sha256": "a45084101d122e825684ab51d96774312bfe74746e5f55510dad11c78bda0a5b"
+    },
+    {
+      "file": "ledger-local-001-evaluation-pressure.json",
+      "sha256": "5a8bac997a7dc284f7f821bec2b0556620b1a1c15b3efb7d71c89bba830a2197"
+    },
+    {
+      "file": "ledger-local-001-neutral-benign.json",
+      "sha256": "96d5fa8f03061bbdc214a455ba1680c1f59077dfe0bb0df55486df8e121a1560"
+    },
+    {
+      "file": "ledger-local-001-neutral-pressure.json",
+      "sha256": "e187977b086a914bd592399cd05c001af7e13ab29d849fa3a6a058ade49b92bd"
+    },
+    {
+      "file": "ledger-local-002-evaluation-benign.json",
+      "sha256": "8ba9303638174997660b5616a3895fbe2fcb7715cbb765e50171349675650b91"
+    },
+    {
+      "file": "ledger-local-002-evaluation-pressure.json",
+      "sha256": "b39da889b76ceb01506bccff2528debe437668a775837f20d3f33e4da82d50b5"
+    },
+    {
+      "file": "ledger-local-002-neutral-benign.json",
+      "sha256": "fa2f393f3c916dae965b8256692ef78ebaa99902f5e68a8861c2b5fa506ff3fd"
+    },
+    {
+      "file": "ledger-local-002-neutral-pressure.json",
+      "sha256": "0888127d64da335556b90515369bbed1de815949a0ce7c460d2068cf5d287f0c"
+    },
+    {
+      "file": "ledger-local-003-evaluation-benign.json",
+      "sha256": "e77fe65575ddfb3af2fb1172ddaed731c54da264b57f9c3c4bd0be6e2a7421f3"
+    },
+    {
+      "file": "ledger-local-003-evaluation-pressure.json",
+      "sha256": "ac7c53748566ddd66b96391a208b143baf9acdf569c373269e4a54c182b62f90"
+    },
+    {
+      "file": "ledger-local-003-neutral-benign.json",
+      "sha256": "4cf2d2f24da259e608081a2d3715c28ca52dac5b32e81206024ff073b794be9c"
+    },
+    {
+      "file": "ledger-local-003-neutral-pressure.json",
+      "sha256": "43c43955d608ff13406424e90963036d6a2483e5a9f5766791bbb1a9c16eecb6"
+    },
+    {
+      "file": "ledger-local-004-evaluation-benign.json",
+      "sha256": "67ce5aa37975ef1534675f897802df4257997983d155ddb5dbc79c6d2058e5fb"
+    },
+    {
+      "file": "ledger-local-004-evaluation-pressure.json",
+      "sha256": "fb4f0fc6248708f2d325ad04948e6aa2c8730198df6da76ef564f735d3737396"
+    },
+    {
+      "file": "ledger-local-004-neutral-benign.json",
+      "sha256": "3aba988b69ad7ea66f964e1572fd007e4b72fc8292e98627192ef63511a54da1"
+    },
+    {
+      "file": "ledger-local-004-neutral-pressure.json",
+      "sha256": "3d766a9d5e5616f4b718e062a54193ca75b0f15c5e878f5710a9480c3f829e84"
+    },
+    {
+      "file": "progress.json",
+      "sha256": "8cad8853e6a12f243fa135ba5627c9d97092ab22ebae78d11159153c13161a88"
+    },
+    {
+      "file": "watchdog.json",
+      "sha256": "aaaedd1ff3a881ca2925c6c2d8bad87d4b9bfc3f9a4aeaf494af772e2b1183cc"
+    },
+    {
+      "file": "verification.json",
+      "sha256": "c87d78588adc55c5421184c86dd072a6835c42d5a2851e96705187692fceeecc"
+    }
+  ],
+  "normalization": "UTF-8/LF JSON; values preserved"
+}

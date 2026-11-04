@@ -1,0 +1,13 @@
+{
+  "artifact_kind": "local_study_process_watchdog",
+  "status": "child_failed",
+  "started_at_utc": "2026-11-04T19:37:28.928168+00:00",
+  "hard_wall_seconds": 1200,
+  "requested_trials": 16,
+  "max_generated_tokens": 8192,
+  "child_exit_code": 2,
+  "terminated_owned_child": false,
+  "child_pid": 15000,
+  "elapsed_seconds": 63.375,
+  "ended_at_utc": "2026-11-04T19:38:32.304573+00:00"
+}

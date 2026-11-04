@@ -1,0 +1,25 @@
+{
+  "files": [
+    {
+      "file": "assigned-plan.json",
+      "sha256": "d1ef6560f74601c75ad8f113f5ff710639da10082b84257dd618cd2c255f22c4"
+    },
+    {
+      "file": "ledger-local-001-evaluation-benign.json",
+      "sha256": "aa0c1f192387160d25ce05768628bc132a1a19920c5ab045e22d2086e5d844e0"
+    },
+    {
+      "file": "ledger-local-001-neutral-benign.json",
+      "sha256": "a1d46e5adf4ee3c8a84c005b53b017c7bd0b529f35c9c2b1680d33fb71c55f6a"
+    },
+    {
+      "file": "ledger-local-001-neutral-pressure.json",
+      "sha256": "2f0fc72e675d8fc64a3e2c353dcce880a4b4ba355014b3f7a0664766bb865e83"
+    },
+    {
+      "file": "progress.json",
+      "sha256": "9bda4a2e5166975558fc6681f75f051a998d56d4db1267898a37e6305844434f"
+    }
+  ],
+  "scope": "Preserved interrupted observations; no missing outcomes filled in."
+}

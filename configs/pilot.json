@@ -127,5 +127,7 @@
     "no_inference_from_false_alarm_difference": true
   },
   "deferred_full_study": "configs/full-study-v0.2.json",
-  "completed_run": "results/2026-11-04-local-study"
+  "completed_run": "results/2026-11-04-local-study",
+  "latest_requested_execution": "results/2026-11-04-requested-run-02",
+  "latest_interrupted_execution": "results/2026-11-04-requested-run-01"
 }

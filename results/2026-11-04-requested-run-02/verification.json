@@ -1,0 +1,14 @@
+{
+  "status": "verified",
+  "assigned_trials": 16,
+  "verified_pre_action_readouts": 13,
+  "plan_rule_source_hashes_match": true,
+  "outcomes_and_aggregates_recomputed": true,
+  "scope": "Artifact/index verification; activations are not recomputed.",
+  "cached_tokenizer_verification": {
+    "raw_generation_trials": 16,
+    "reasoning_slices": 13,
+    "action_slices": 13,
+    "model_forward_calls": 0
+  }
+}
