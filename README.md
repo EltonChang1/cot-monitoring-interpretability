@@ -4,7 +4,7 @@ Latest requested execution: [completed 16-trial rerun](results/2026-11-04-reques
 
 **The default local study is executable and has been run.** Protocol 0.4 uses a pinned Qwen3-0.6B model on the available RTX 3060; it studies shortcut-pressure behavior and a fixed CoT warning diagnostic on a small synthetic ledger panel.
 
-The November 4 run completed all **16 assigned trials in about 7 minutes**. It saved 13 pre-action activation readouts. Eight actions were valid, successful, and nonviolating; five completed outputs were malformed, and three hit the token cap. These eight unknown labels make the behavioral and monitoring conclusions inconclusive. They are preserved, not repaired or discarded.
+The most recent run completed all **16 assigned trials in about 7 minutes**. It saved 13 pre-action activation readouts. Eight actions were valid, successful, and nonviolating; five completed outputs were malformed, and three hit the token cap. These eight unknown labels make the behavioral and monitoring conclusions inconclusive. They are preserved, not repaired or discarded.
 
 ## Run the study
 
